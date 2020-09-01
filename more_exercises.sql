@@ -189,3 +189,62 @@ FROM country;
 +---------------------+
 1 row in set (0.00 sec)
 */
+
+-- What is the average life expectancy for each region, each continent? 
+-- Sort the results from shortest to longest
+
+SELECT Continent, AVG(LifeExpectancy)
+FROM country
+GROUP BY Continent
+ORDER BY AVG(LifeExpectancy);
+
+SELECT Region, AVG(LifeExpectancy)
+FROM country
+GROUP BY Region
+ORDER BY AVG(LifeExpectancy);
+
+/*
++---------------+-----------------+
+| Continent     | life_expectancy |
++---------------+-----------------+
+| Antarctica    |            NULL |
+| Africa        |        52.57193 |
+| Asia          |        67.44118 |
+| Oceania       |        69.71500 |
+| South America |        70.94615 |
+| North America |        72.99189 |
+| Europe        |        75.14773 |
++---------------+-----------------+
+7 rows in set (0.00 sec)
+
++---------------------------+-----------------+
+| Region                    | life_expectancy |
++---------------------------+-----------------+
+| Antarctica                |            NULL |
+| Micronesia/Caribbean      |            NULL |
+| Southern Africa           |        44.82000 |
+| Central Africa            |        50.31111 |
+| Eastern Africa            |        50.81053 |
+| Western Africa            |        52.74118 |
+| Southern and Central Asia |        61.35000 |
+| Southeast Asia            |        64.40000 |
+| Northern Africa           |        65.38571 |
+| Melanesia                 |        67.14000 |
+| Micronesia                |        68.08571 |
+| Baltic Countries          |        69.00000 |
+| Eastern Europe            |        69.93000 |
+| Middle East               |        70.56667 |
+| Polynesia                 |        70.73333 |
+| South America             |        70.94615 |
+| Central America           |        71.02500 |
+| Caribbean                 |        73.05833 |
+| Eastern Asia              |        75.25000 |
+| North America             |        75.82000 |
+| Southern Europe           |        76.52857 |
+| British Islands           |        77.25000 |
+| Western Europe            |        78.25556 |
+| Nordic Countries          |        78.33333 |
+| Australia and New Zealand |        78.80000 |
++---------------------------+-----------------+
+25 rows in set (0.00 sec)
+*/

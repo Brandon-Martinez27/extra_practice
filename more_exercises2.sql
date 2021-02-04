@@ -388,3 +388,143 @@ GROUP BY last_name;
 
 -- 7. List last names of actors and the number of actors who have that last name, but only for names that are shared by at least two actors
 
+SELECT last_name, count(last_name) as count
+FROM actor
+GROUP BY last_name
+	HAVING count > 1
+ORDER BY count;
+
+/*
++-------------+-------+
+| last_name   | count |
++-------------+-------+
+| CAGE        | 2     |
++-------------+-------+
+| PALTROW     | 2     |
++-------------+-------+
+| MOSTEL      | 2     |
++-------------+-------+
+| BENING      | 2     |
++-------------+-------+
+| BAILEY      | 2     |
++-------------+-------+
+| DENCH       | 2     |
++-------------+-------+
+| SILVERSTONE | 2     |
++-------------+-------+
+| CRONYN      | 2     |
++-------------+-------+
+| PENN        | 2     |
++-------------+-------+
+| WEST        | 2     |
++-------------+-------+
+| MCQUEEN     | 2     |
++-------------+-------+
+| TRACY       | 2     |
++-------------+-------+
+| TANDY       | 2     |
++-------------+-------+
+| DEAN        | 2     |
++-------------+-------+
+| HACKMAN     | 2     |
++-------------+-------+
+| OLIVIER     | 2     |
++-------------+-------+
+| MONROE      | 2     |
++-------------+-------+
+| WAHLBERG    | 2     |
++-------------+-------+
+| DUKAKIS     | 2     |
++-------------+-------+
+| MCCONAUGHEY | 2     |
++-------------+-------+
+| STREEP      | 2     |
++-------------+-------+
+| CRAWFORD    | 2     |
++-------------+-------+
+| HOPPER      | 2     |
++-------------+-------+
+| WINSLET     | 2     |
++-------------+-------+
+| BOLGER      | 2     |
++-------------+-------+
+| GOODING     | 2     |
++-------------+-------+
+| NEESON      | 2     |
++-------------+-------+
+| FAWCETT     | 2     |
++-------------+-------+
+| MCKELLEN    | 2     |
++-------------+-------+
+| DEPP        | 2     |
++-------------+-------+
+| CHASE       | 2     |
++-------------+-------+
+| WOOD        | 2     |
++-------------+-------+
+| BRODY       | 2     |
++-------------+-------+
+| DEE         | 2     |
++-------------+-------+
+| JACKMAN     | 2     |
++-------------+-------+
+| HOPKINS     | 3     |
++-------------+-------+
+| ZELLWEGER   | 3     |
++-------------+-------+
+| HARRIS      | 3     |
++-------------+-------+
+| DAVIS       | 3     |
++-------------+-------+
+| ALLEN       | 3     |
++-------------+-------+
+| KEITEL      | 3     |
++-------------+-------+
+| WILLIS      | 3     |
++-------------+-------+
+| DEGENERES   | 3     |
++-------------+-------+
+| JOHANSSON   | 3     |
++-------------+-------+
+| PECK        | 3     |
++-------------+-------+
+| TORN        | 3     |
++-------------+-------+
+| AKROYD      | 3     |
++-------------+-------+
+| HOFFMAN     | 3     |
++-------------+-------+
+| GUINESS     | 3     |
++-------------+-------+
+| WILLIAMS    | 3     |
++-------------+-------+
+| BERRY       | 3     |
++-------------+-------+
+| GARLAND     | 3     |
++-------------+-------+
+| TEMPLE      | 4     |
++-------------+-------+
+| NOLTE       | 4     |
++-------------+-------+
+| KILMER      | 5     |
++-------------+-------+
+55 rows in set
+*/
+
+-- 8. You cannot locate the schema of the address table. Which query would you use to re-create it?
+
+CREATE TABLE `address_copy` (
+  `address_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `address` varchar(50) NOT NULL,
+  `address2` varchar(50) DEFAULT NULL,
+  `district` varchar(20) NOT NULL,
+  `city_id` smallint(5) unsigned NOT NULL,
+  `postal_code` varchar(10) DEFAULT NULL,
+  `phone` varchar(20) NOT NULL,
+  `location` geometry NOT NULL,
+  `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`address_id`),
+  KEY `idx_fk_city_id` (`city_id`),
+  SPATIAL KEY `idx_location` (`location`),
+  CONSTRAINT `fk_address_city` FOREIGN KEY (`city_id`) REFERENCES `city` (`city_id`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=606 DEFAULT CHARSET=utf8;

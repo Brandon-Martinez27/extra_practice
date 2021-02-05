@@ -528,3 +528,182 @@ CREATE TABLE `address_copy` (
   SPATIAL KEY `idx_location` (`location`),
   CONSTRAINT `fk_address_city` FOREIGN KEY (`city_id`) REFERENCES `city` (`city_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=606 DEFAULT CHARSET=utf8;
+
+-- 9. Use JOIN to display the first and last names, as well as the address, of each staff member.
+
+SELECT first_name, last_name, address
+FROM staff
+JOIN address
+	USING(address_id);
+
+/*
++------------+-----------+----------------------+
+| first_name | last_name | address              |
++------------+-----------+----------------------+
+| Mike       | Hillyer   | 23 Workhaven Lane    |
++------------+-----------+----------------------+
+| Jon        | Stephens  | 1411 Lillydale Drive |
++------------+-----------+----------------------+
+2 rows in set
+*/
+
+-- 10. Use JOIN to display the total amount rung up by each staff member in August of 2005.
+
+SELECT first_name, last_name, SUM(amount) as total_amount
+FROM payment
+JOIN staff
+    USING(staff_id)
+WHERE payment_date like '2005-08-%'
+GROUP BY last_name, first_name;
+
+/*
++------------+-----------+--------------+
+| first_name | last_name | total_amount |
++------------+-----------+--------------+
+| Mike       | Hillyer   | 11853.65     |
++------------+-----------+--------------+
+| Jon        | Stephens  | 12218.48     |
++------------+-----------+--------------+
+2 rows in set
+*/
+
+-- 11. List each film and the number of actors who are listed for that film.
+
+SELECT title, COUNT(actor_id) as number_of_actors
+FROM film
+JOIN film_actor
+    USING(film_id)
+GROUP BY title;
+
+/*
++-----------------------------+------------------+
+| title                       | number_of_actors |
++-----------------------------+------------------+
+| ACADEMY DINOSAUR            | 10               |
++-----------------------------+------------------+
+| ACE GOLDFINGER              | 4                |
++-----------------------------+------------------+
+| ADAPTATION HOLES            | 5                |
++-----------------------------+------------------+
+| AFFAIR PREJUDICE            | 5                |
++-----------------------------+------------------+
+| AFRICAN EGG                 | 5                |
++-----------------------------+------------------+
+| AGENT TRUMAN                | 7                |
++-----------------------------+------------------+
+| AIRPLANE SIERRA             | 5                |
++-----------------------------+------------------+
+| AIRPORT POLLOCK             | 4                |
++-----------------------------+------------------+
+997 rows in set
+*/
+
+-- 12. How many copies of the film Hunchback Impossible exist in the inventory system?
+
+SELECT title, COUNT(*) as number_of_copies
+FROM inventory
+JOIN film
+    USING(film_id)
+WHERE title = 'Hunchback Impossible';
+
+/*
++----------------------+------------------+
+| title                | number_of_copies |
++----------------------+------------------+
+| HUNCHBACK IMPOSSIBLE | 6                |
++----------------------+------------------+
+1 row in set
+*/
+
+-- 13. The music of Queen and Kris Kristofferson have seen an unlikely resurgence. As an unintended consequence, films starting with the letters K and Q have also soared in popularity. Use subqueries to display the titles of movies starting with the letters K and Q whose language is English.
+
+-- Using JOIN
+SELECT title
+FROM film
+JOIN language
+    USING(language_id)
+WHERE title like 'K%'
+    OR title like 'Q%'
+    AND name = 'English';
+
+-- Using subquery
+SELECT title
+FROM film
+WHERE title LIKE 'Q%' 
+	OR title LIKE 'K%'
+	AND language_id IN (
+		SELECT language_id
+		FROM language 
+		WHERE name = 'English'
+);
+
+/*
++------------------+
+| title            |
++------------------+
+| KANE EXORCIST    |
++------------------+
+| KARATE MOON      |
++------------------+
+| KENTUCKIAN GIANT |
++------------------+
+| KICK SAVANNAH    |
++------------------+
+| KILL BROTHERHOOD |
++------------------+
+| KILLER INNOCENT  |
++------------------+
+| KING EVOLUTION   |
++------------------+
+| KISS GLORY       |
++------------------+
+| KISSING DOLLS    |
++------------------+
+| KNOCK WARLOCK    |
++------------------+
+| KRAMER CHOCOLATE |
++------------------+
+| KWAI HOMEWARD    |
++------------------+
+| QUEEN LUKE       |
++------------------+
+| QUEST MUSSOLINI  |
++------------------+
+| QUILLS BULL      |
++------------------+
+*/
+
+-- 14. Use subqueries to display all actors who appear in the film Alone Trip.
+
+SELECT first_name, last_name
+FROM actor
+WHERE actor_id IN (
+	SELECT actor_id
+	FROM film_actor
+	WHERE film_id IN (
+		SELECT film_id
+		FROM film
+		WHERE title = 'ALONE TRIP'));
+
+/*
++------------+-----------+
+| first_name | last_name |
++------------+-----------+
+| ED         | CHASE     |
++------------+-----------+
+| KARL       | BERRY     |
++------------+-----------+
+| UMA        | WOOD      |
++------------+-----------+
+| WOODY      | JOLIE     |
++------------+-----------+
+| SPENCER    | DEPP      |
++------------+-----------+
+| CHRIS      | DEPP      |
++------------+-----------+
+| LAURENCE   | BULLOCK   |
++------------+-----------+
+| RENEE      | BALL      |
++------------+-----------+
+8 rows in set
+/*

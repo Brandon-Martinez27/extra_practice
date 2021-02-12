@@ -1,14 +1,32 @@
 -- 1. SELECT statements
 
--- a. Select all columns from the actor table.
--- b. Select only the last_name column from the actor table.
--- c. Select only the following columns from the film table.
+    -- a. Select all columns from the actor table.
+    use sakila;
+
+    SELECT *
+    FROM actor;
+
+    -- b. Select only the last_name column from the actor table.
+    SELECT last_name
+    FROM actor;
+
+    -- c. Select only the following columns from the film table.
+    SELECT title, description, release_year, rating
+    FROM film;
 
 -- 2. DISTINCT operator
 
--- a. Select all distinct (different) last names from the actor table.
--- b. Select all distinct (different) postal codes from the address table.
--- c. Select all distinct (different) ratings from the film table.
+    -- a. Select all distinct (different) last names from the actor table.
+    SELECT DISTINCT last_name 
+    FROM actor;
+
+    -- b. Select all distinct (different) postal codes from the address table.
+    SELECT DISTINCT postal_code
+    FROM address;
+
+    -- c. Select all distinct (different) ratings from the film table.
+    SELECT DISTINCT rating
+    FROM film;
 
 -- 3. WHERE clause
 

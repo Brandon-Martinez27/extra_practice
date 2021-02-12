@@ -30,14 +30,54 @@
 
 -- 3. WHERE clause
 
--- a. Select the title, description, rating, movie length columns from the films table that last 3 hours or longer.
--- b. Select the payment id, amount, and payment date columns from the payments table for payments made on or after 05/27/2005.
--- c. Select the primary key, amount, and payment date columns from the payment table for payments made on 05/27/2005.
--- d. Select all columns from the customer table for rows that have a last names beginning with S and a first names ending with N.
--- e. Select all columns from the customer table for rows where the customer is inactive or has a last name beginning with "M".
--- f. Select all columns from the category table for rows where the primary key is greater than 4 and the name field begins with either C, S or T.
--- g. Select all columns minus the password column from the staff table for rows that contain a password.
--- h. Select all columns minus the password column from the staff table for rows that do not contain a password.
+    -- a. Select the title, description, rating, movie length columns from the films table that last 3 hours or longer.
+    SELECT title, description, rating, length
+    FROM film
+    WHERE length >= 60*3;
+
+    -- b. Select the payment id, amount, and payment date columns from the payments table for payments made on or after 05/27/2005.
+    SELECT payment_id, amount, payment_date
+    FROM payment
+    WHERE payment_date between '2005-05-27' and CURDATE();
+
+    -- c. Select the primary key, amount, and payment date columns from the payment table for payments made on 05/27/2005.
+    SELECT payment_id, amount, payment_date
+    FROM payment
+    WHERE payment_date like '2005-05-27%';
+
+    -- d. Select all columns from the customer table for rows that have a last names beginning with S and a first names ending with N.
+    SELECT *
+    FROM customer 
+    WHERE last_name like 's%'
+        AND first_name like '%n';
+
+    -- e. Select all columns from the customer table for rows where the customer is inactive or has a last name beginning with "M".
+    SELECT *
+    FROM customer
+    WHERE active = 0
+        OR last_name like 'M%';
+
+    -- f. Select all columns from the category table for rows where the primary key is greater than 4 and the name field begins with either C, S or T.
+    SELECT *
+    FROM category 
+    WHERE category_id > 4
+        AND (
+            name like 'c%'
+            OR name like 's%'
+            OR name like 't%');
+
+    -- g. Select all columns minus the password column from the staff table for rows that contain a password.
+    SELECT staff_id, first_name, last_name, 
+            address_id, picture, email, store_id, 
+            active, username, last_update
+    FROM staff
+    WHERE password IS NOT NULL;
+    -- h. Select all columns minus the password column from the staff table for rows that do not contain a password.
+    SELECT staff_id, first_name, last_name, 
+            address_id, picture, email, store_id, 
+            active, username, last_update
+    FROM staff
+    WHERE password IS NULL;
 
 -- 4. IN operator
 

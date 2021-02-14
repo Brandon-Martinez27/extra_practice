@@ -81,9 +81,20 @@
 
 -- 4. IN operator
 
--- a. Select the phone and district columns from the address table for addresses in California, England, Taipei, or West Java.
--- b. Select the payment id, amount, and payment date columns from the payment table for payments made on 05/25/2005, 05/27/2005, and 05/29/2005. (Use the IN operator and the DATE function, instead of the AND operator as in previous exercises.)
--- c. Select all columns from the film table for films rated G, PG-13 or NC-17.
+    -- a. Select the phone and district columns from the address table for addresses in California, England, Taipei, or West Java.
+    SELECT phone, district
+    FROM address
+    WHERE district in ('California', 'England', 'Taipei', 'West Java');
+
+    -- b. Select the payment id, amount, and payment date columns from the payment table for payments made on 05/25/2005, 05/27/2005, and 05/29/2005. (Use the IN operator and the DATE function, instead of the AND operator as in previous exercises.)
+    SELECT payment_id, amount, payment_date
+    FROM payment
+    WHERE DATE(payment_date) IN ('2005-05-25', '2005-05-27', '2005-05-29');
+
+    -- c. Select all columns from the film table for films rated G, PG-13 or NC-17.
+    SELECT *
+    FROM film
+    WHERE rating IN ('G', 'PG-13', 'NC-17');
 
 -- 5. BETWEEN operator
 

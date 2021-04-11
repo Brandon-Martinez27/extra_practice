@@ -35,10 +35,10 @@ Answer: They are both equal when referring to a primary key
 where each value is in fact distinct/unique from any other in
 that row.
 */
--- Example of :
+-- Example of COUNT:
 SELECT COUNT(emp_no)
 FROM salaries; -- 284,4047 result
--- vs :
+-- vs COUNT DISTINCT:
 SELECT COUNT(DISTINCT(emp_no))
 FROM salaries; -- 300,024
 /* explanation: in this example there may be more than one salary
@@ -46,18 +46,81 @@ for each employee as they get promoted (and hopefull less likely
 demoted) within the company. In the table where employee id is the
 primary key though (`employees`), both results are the same. */
 
+
 -- 3. Can left and inner join return the same results?
+/* 
+Answer: 
+*/
+-- Example of :
+
+-- vs :
+
+/* explanation:  */
 
 -- 4. What is the difference between RANK and DENSE RANK?
+/* 
+Answer: 
+*/
+-- Example of :
+
+-- vs :
+
+/* explanation:  */
+
 
 -- 5. Can UNION and UNION ALL return the same results?
+/* 
+Answer: 
+*/
+-- Example of :
+
+-- vs :
+
+/* explanation:  */
+
 
 -- 6. What are the best scenarios to use a self join?
+/* 
+Answer: 
+*/
+-- Example of :
+
+-- vs :
+
+/* explanation:  */
+
 
 -- 7. How can you use SQL to dedupe rows?
+/* 
+Answer: 
+*/
+-- Example of :
+
+-- vs :
+
+/* explanation:  */
+
 
 -- 8. In what scenarios is the LAG function useful?
+/* 
+Answer: 
+*/
+-- Example of :
+
+-- vs :
+
+/* explanation:  */
+
 
 -- 9. Use a window function to calculate a running total.
+/* 
+Answer: 
+*/
+-- Example of :
+
+-- vs :
+
+/* explanation:  */
+
 
 -- 10. Why would you use GROUP BY ROLLUP?

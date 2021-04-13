@@ -49,22 +49,36 @@ primary key though (`employees`), both results are the same. */
 
 -- 3. Can left and inner join return the same results?
 /* 
-Answer: 
+Answer: They can return the same results if each table
+is joined has at least one match.
 */
 -- Example of :
-
+SELECT *
+FROM employees
+JOIN salaries USING(emp_no); -- 2,844,047 rows returned
 -- vs :
-
-/* explanation:  */
+SELECT *
+FROM employees
+LEFT JOIN salaries USING(emp_no);
+/* explanation: Both return same results */
 
 -- 4. What is the difference between RANK and DENSE RANK?
 /* 
-Answer: 
+Answer: The number of positions skipped depends on how many 
+rows had an identical ranking. For example, Mary and Lisa sold 
+the same number of products and are both ranked as #2. With RANK, 
+the next position is #4; with DENSE_RANK, the next position is #3.
 */
 -- Example of :
-
+SELECT first_name,
+		last_name,
+		RANK() OVER (ORDER BY birth_date) r,
+FROM employees;
 -- vs :
-
+SELECT first_name,
+		last_name,
+		DENSE_RANK() OVER (ORDER BY birth_date) r,
+FROM employees;
 /* explanation:  */
 
 

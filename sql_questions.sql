@@ -84,7 +84,10 @@ FROM employees;
 
 -- 5. Can UNION and UNION ALL return the same results?
 /* 
-Answer: 
+Answer: UNION: only keeps unique records
+UNION ALL: keeps all records, including duplicates
+The results would only be same if there were in fact no
+duplicates
 */
 -- Example of :
 

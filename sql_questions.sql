@@ -141,3 +141,5 @@ Answer:
 
 
 -- 10. Why would you use GROUP BY ROLLUP?
+
+-- completed the 52 exercises on w3 schools: https://www.w3schools.com/sql/exercise.asp?filename=exercise_select1
